@@ -20,7 +20,7 @@ public class RuntimeUtils {
     private RuntimeUtils() {
     }
 
-    private static AtomicInteger shutdownHookThreadIndex = new AtomicInteger(0);
+    private static final AtomicInteger shutdownHookThreadIndex = new AtomicInteger(0);
 
     /**
      * 获得当前进程的PID
@@ -62,7 +62,7 @@ public class RuntimeUtils {
     /**
      * 获取CPU核数
      */
-    public static int getCores() {
+    public static int getCpuCores() {
         return Runtime.getRuntime().availableProcessors();
     }
 
@@ -108,7 +108,6 @@ public class RuntimeUtils {
 
     /**
      * 通过StackTrace，获得当前方法的类名.
-     * <p>
      * 获取StackTrace有消耗，不要滥用
      */
     public static String getCurrentClass() {

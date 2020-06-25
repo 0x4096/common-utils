@@ -59,7 +59,7 @@ public class DateUtils {
      * 获取指定时间是星期几
      *
      * @param date 指定时间
-     * @return 定时间是星期几
+     * @return 指定时间是星期几
      */
     public static String getWeekDay(Date date) {
         if (date == null) {
@@ -98,7 +98,7 @@ public class DateUtils {
      * 是否同一天
      */
     public static boolean isSameDay(Date date1, Date date2) {
-        return DateUtils.isSameDay(date1, date2);
+        return org.apache.commons.lang3.time.DateUtils.isSameDay(date1, date2);
     }
 
 
@@ -120,7 +120,7 @@ public class DateUtils {
      */
     public static boolean isBetween(Date date, Date start, Date end) {
         if (date == null || start == null || end == null || start.after(end)) {
-            throw new IllegalArgumentException("some date parameters is null or dateBein after dateEnd");
+            throw new IllegalArgumentException("some date parameters is null or dateBegin after dateEnd");
         }
         return !date.before(start) && !date.after(end);
     }
@@ -260,7 +260,7 @@ public class DateUtils {
     /**
      * 获取下周第一天开始时间 2020-05-17 07:33:23, 则返回2020-05-18 00:00:00
      */
-    public static Date nextWeek(Date date) {
+    public static Date nextWeekBegin(Date date) {
         return org.apache.commons.lang3.time.DateUtils.truncate(addDays(date, 8 - getDayOfWeek(date)), Calendar.DATE);
     }
 

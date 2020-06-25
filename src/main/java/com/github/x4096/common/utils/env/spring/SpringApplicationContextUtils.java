@@ -16,15 +16,16 @@ public class SpringApplicationContextUtils implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;
 
-
     public static ApplicationContext getApplicationContext() {
         return applicationContext;
     }
+
 
     @SuppressWarnings("unchecked")
     public static <T> T getBean(String name) throws BeansException {
         return (T) applicationContext.getBean(name);
     }
+
 
     @SuppressWarnings("unchecked")
     public static <T> T getBean(Class<?> clz) throws BeansException {

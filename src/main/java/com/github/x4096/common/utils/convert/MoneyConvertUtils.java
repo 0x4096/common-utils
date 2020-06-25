@@ -1,4 +1,4 @@
-package com.github.x4096.common.utils.conversion;
+package com.github.x4096.common.utils.convert;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -16,12 +16,12 @@ import java.util.regex.Pattern;
  * @DateTime: 2019-08-15 23:31
  * @Description: 金钱格式转换 元->分,分->元
  */
-public class MoneyUtils {
+public class MoneyConvertUtils {
 
-    private MoneyUtils() {
+    private MoneyConvertUtils() {
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(MoneyUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(MoneyConvertUtils.class);
 
     /**
      * 元转分

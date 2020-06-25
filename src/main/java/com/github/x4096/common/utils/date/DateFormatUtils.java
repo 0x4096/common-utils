@@ -32,7 +32,6 @@ public class DateFormatUtils {
      * 解析时间字符串
      *
      * @param dateString 时间字符串,默认解析格式 yyyy-MM-dd HH:mm:ss
-     * @return
      */
     public static Date parse(String dateString) {
         return parse(dateString, DateFormatEnum.YEAR_MONTH_DAY_24.getFormat());
@@ -44,7 +43,6 @@ public class DateFormatUtils {
      *
      * @param dateString     时间字符串
      * @param dateFormatEnum 解析样式
-     * @return
      */
     public static Date parse(String dateString, DateFormatEnum dateFormatEnum) {
         return parse(dateString, dateFormatEnum.getFormat());
@@ -56,7 +54,6 @@ public class DateFormatUtils {
      *
      * @param dateString 时间字符串
      * @param pattern    解析的样式 参考 {@link DateFormatEnum}
-     * @return
      */
     public static Date parse(String dateString, String pattern) {
         try {
@@ -73,7 +70,6 @@ public class DateFormatUtils {
      * 默认格式 yyyy-MM-dd HH:mm:ss
      *
      * @param date 时间
-     * @return
      */
     public static String format(Date date) {
         return format(date, PATTERN_DEFAULT_ON_SECOND);
@@ -85,7 +81,6 @@ public class DateFormatUtils {
      *
      * @param date    时间
      * @param pattern 格式样式 参考 {@link DateFormatEnum}
-     * @return
      */
     public static String format(Date date, String pattern) {
         return FastDateFormat.getInstance(pattern).format(date);
@@ -97,7 +92,6 @@ public class DateFormatUtils {
      *
      * @param date           时间
      * @param dateFormatEnum 格式样式
-     * @return
      */
     public static String format(Date date, DateFormatEnum dateFormatEnum) {
         return FastDateFormat.getInstance(dateFormatEnum.getFormat()).format(date);
@@ -119,9 +113,10 @@ public class DateFormatUtils {
         long now = Clock.systemDefaultZone().millis();
         long span = now - timeStampMillis;
         if (span < 0) {
-            // 'c' 日期和时间，被格式化为 "%ta %tb %td %tT %tZ %tY"，例如 "Sun Jul 20 16:17:00 EDT 1969"。
+            /* 'c' 日期和时间，被格式化为 "%ta %tb %td %tT %tZ %tY"，例如 "Sun Jul 20 16:17:00 EDT 1969"。 */
             return String.format("%tc", timeStampMillis);
         }
+
         if (span < DateUtils.MILLIS_PER_SECOND) {
             return "刚刚";
         } else if (span < DateUtils.MILLIS_PER_MINUTE) {
@@ -129,15 +124,16 @@ public class DateFormatUtils {
         } else if (span < DateUtils.MILLIS_PER_HOUR) {
             return String.format("%d分钟前", span / DateUtils.MILLIS_PER_MINUTE);
         }
-        // 获取当天00:00
+
+        /* 获取当天00:00 */
         long wee = DateUtils.beginOfDate(new Date(now)).getTime();
         if (timeStampMillis >= wee) {
-            // 'R' 24 小时制的时间，被格式化为 "%tH:%tM"
+            /* 'R' 24 小时制的时间，被格式化为 "%tH:%tM" */
             return String.format("今天%tR", timeStampMillis);
         } else if (timeStampMillis >= wee - DateUtils.MILLIS_PER_DAY) {
             return String.format("昨天%tR", timeStampMillis);
         } else {
-            // 'F' ISO 8601 格式的完整日期，被格式化为 "%tY-%tm-%td"。
+            /* 'F' ISO 8601 格式的完整日期，被格式化为 "%tY-%tm-%td"。 */
             return String.format("%tF", timeStampMillis);
         }
     }

@@ -33,9 +33,6 @@ public class IPUtils {
 
     /**
      * 获取网络请求IP地址
-     *
-     * @param request
-     * @return
      */
     public static String getNetIpAddr(HttpServletRequest request) {
         String ipAddress = request.getHeader("x-forwarded-for");
@@ -52,7 +49,7 @@ public class IPUtils {
             ipAddress = request.getRemoteAddr();
             if (LOCAL_HOST_V4.equals(ipAddress) || LOCAL_HOST_V6.equals(ipAddress)) {
                 /* 根据网卡取本机配置的IP */
-                InetAddress inet = null;
+                InetAddress inet;
                 try {
                     inet = InetAddress.getLocalHost();
                 } catch (UnknownHostException e) {
@@ -76,8 +73,6 @@ public class IPUtils {
 
     /**
      * 获取主机 IP ,去除存在虚拟机情况
-     *
-     * @return
      */
     public static String getLocalIpAddr() {
         InetAddress candidateAddress = null;
@@ -116,6 +111,7 @@ public class IPUtils {
         }
         return null;
     }
+
 
     /**
      * 获取本机 Host 名称.

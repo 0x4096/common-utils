@@ -70,44 +70,20 @@ public class HttpSyncClientUtils {
 
     private static CloseableHttpClient closeableHttpClient;
 
-    /**
-     * 是否打印请求日志
-     */
-    private static boolean isPrintRequestLog = false;
 
-    /**
-     * 是否打印响应日志
-     */
-    private static boolean isPrintResponseLog = false;
-
-
-    /**
-     * 初始化 httpClient 默认配置 默认不打印请求日志
-     */
     public static void init() {
-        init(new HttpSyncConfig(), false, false);
-    }
-
-
-    /**
-     * 初始化 httpClient 默认配置
-     *
-     * @param isPrintRequestLog 是否打印请求日志
-     */
-    public static void init(boolean isPrintRequestLog, boolean isPrintResponseLog) {
-        init(new HttpSyncConfig(), isPrintRequestLog, isPrintResponseLog);
+        init(new HttpSyncConfig());
     }
 
 
     /**
      * 初始化 httpClient
      *
-     * @param httpSyncConfig
+     * @param httpSyncConfig httpSyncConfig
      */
-    public static void init(HttpSyncConfig httpSyncConfig, boolean isPrintRequestLog, boolean isPrintResponseLog) {
-        logger.info("HttpClient 初始化: {}, 是否打印请求日志: {}, 是否打印响应日志: {}", httpSyncConfig.toString(), isPrintRequestLog, isPrintResponseLog);
-        HttpSyncClientUtils.isPrintRequestLog = isPrintRequestLog;
-        HttpSyncClientUtils.isPrintResponseLog = isPrintResponseLog;
+    public static void init(HttpSyncConfig httpSyncConfig) {
+        logger.info("HttpClient 初始化: {}", httpSyncConfig.toString());
+
         SSLContext sslcontext;
         try {
             sslcontext = SSLContexts
@@ -231,10 +207,6 @@ public class HttpSyncClientUtils {
      * @return
      */
     public static HttpResponse post(String requestUrl, String requestContent, Map<String, String> requestHeader, HttpContentTypeEnum httpContentTypeEnum) {
-        if (isPrintRequestLog) {
-            logger.info("POST请求入参: requestUrl: {}, requestContent: {}, requestHeader: {}", requestUrl, requestContent, JSON.toJSONString(requestHeader));
-        }
-
         Preconditions.checkArgument(StringUtils.isNotBlank(requestUrl), "requestUrl不能为空");
         Preconditions.checkArgument(ValidateUtils.isUrl(requestUrl), "请求 URL 格式错误");
         Preconditions.checkNotNull(requestContent, "requestContent 请求内容不能为null");
@@ -312,10 +284,6 @@ public class HttpSyncClientUtils {
      * @return
      */
     public static HttpResponse post(String requestUrl, Map<String, Object> requestParams, Map<String, String> requestHeader, String httpContentType) {
-        if (isPrintRequestLog) {
-            logger.info("POST请求入参: requestUrl: {}, requestParams: {}, requestHeader: {}, httpContentType: {}", requestUrl, JSON.toJSONString(requestParams), JSON.toJSONString(requestHeader), httpContentType);
-        }
-
         if (StringUtils.isBlank(requestUrl)) {
             throw new NullPointerException("requestUrl不能为空");
         }
@@ -414,15 +382,11 @@ public class HttpSyncClientUtils {
      * @apiNote 基于SpringMVC或SpringBoot项目 Controller层使用 @RequestParam 接收参数
      */
     public static HttpResponse get(String requestUrl, String urlParams, Map<String, String> requestHeader) {
-        if (isPrintRequestLog) {
-            logger.info("GET请求入参: requestUrl: {}, urlParams: {}, requestHeader: {}", requestUrl, urlParams, JSON.toJSONString(requestHeader));
-        }
         if (StringUtils.isBlank(requestUrl)) {
             throw new NullPointerException("requestUrl不能为空");
         }
 
         HttpGet httpGet = new HttpGet(requestUrl);
-
         if (StringUtils.isNotBlank(urlParams)) {
             try {
                 httpGet.setURI(new URI(httpGet.getURI().toString() + "?" + urlParams));
@@ -469,10 +433,6 @@ public class HttpSyncClientUtils {
      * @param requestHeader 请求头
      */
     private static HttpResponse get(String requestUrl, List<BasicNameValuePair> paramsList, Map<String, String> requestHeader) {
-        if (isPrintRequestLog) {
-            logger.info("GET请求入参: requestUrl: {}, paramsList: {}, requestHeader: {}", requestUrl, JSON.toJSONString(paramsList), JSON.toJSONString(requestHeader));
-        }
-
         if (StringUtils.isBlank(requestUrl)) {
             throw new NullPointerException("baseUrl不能为空");
         }
@@ -569,17 +529,11 @@ public class HttpSyncClientUtils {
                 logger.error("HTTPClient 关闭异常", e);
             }
         }
-        if (isPrintResponseLog) {
-            logger.info("HTTP 响应: " + httpResponse.toString());
-        }
         return httpResponse;
     }
 
     /**
      * 构建 HttpPost 请求头
-     *
-     * @param httpMessage
-     * @return
      */
     private static void buildRequestHeader(HttpMessage httpMessage, Map<String, String> requestHeader) {
         if (MapUtils.isNotEmpty(requestHeader)) {
