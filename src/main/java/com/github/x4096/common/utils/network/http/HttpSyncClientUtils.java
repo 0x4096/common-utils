@@ -1,7 +1,6 @@
 package com.github.x4096.common.utils.network.http;
 
 import com.alibaba.fastjson.JSON;
-import com.github.x4096.common.utils.constant.CharsetConstants;
 import com.github.x4096.common.utils.network.http.config.HttpSyncConfig;
 import com.github.x4096.common.utils.network.http.enums.HttpContentTypeEnum;
 import com.github.x4096.common.utils.network.http.result.HttpResponse;
@@ -42,6 +41,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -64,7 +64,7 @@ public class HttpSyncClientUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpSyncClientUtils.class);
 
-    private static final String DEFAULT_CHARSET = CharsetConstants.UTF_8;
+    private static final String DEFAULT_CHARSET = StandardCharsets.UTF_8.name();
 
     private static PoolingHttpClientConnectionManager poolConnManager;
 

@@ -1,6 +1,5 @@
 package com.github.x4096.common.utils.text;
 
-import com.github.x4096.common.utils.constant.CharsetConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
@@ -9,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @Author: 0x4096.peng@gmail.com
@@ -79,14 +79,15 @@ public class EscapeUtils {
 
         if (isEncode) {
             try {
-                return URLEncoder.encode(url, CharsetConstants.UTF_8);
+                return URLEncoder.encode(url, StandardCharsets.UTF_8.name());
             } catch (UnsupportedEncodingException e) {
                 logger.error("url编码异常,请求入参: " + url, e);
                 return null;
             }
         }
+
         try {
-            return URLDecoder.decode(url, CharsetConstants.UTF_8);
+            return URLDecoder.decode(url, StandardCharsets.UTF_8.name());
         } catch (UnsupportedEncodingException e) {
             logger.error("url解密异常,请求入参: " + url, e);
             return null;

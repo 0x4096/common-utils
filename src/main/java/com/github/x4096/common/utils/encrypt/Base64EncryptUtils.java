@@ -1,12 +1,12 @@
 package com.github.x4096.common.utils.encrypt;
 
-import com.github.x4096.common.utils.constant.CharsetConstants;
 import com.google.common.base.Preconditions;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @Author: 0x4096.peng@gmail.com
@@ -21,7 +21,7 @@ public class Base64EncryptUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(Base64EncryptUtils.class);
 
-    private static final String DEFAULT_CHARSET = CharsetConstants.UTF_8;
+    private static final String DEFAULT_CHARSET = StandardCharsets.UTF_8.name();
 
 
     /**

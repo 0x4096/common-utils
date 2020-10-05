@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @author: 0x4096.peng@gmail.com
  * @project: common-utils
  * @datetime: 2019/12/12 21:26
- * @description:
+ * @description: Spring 上下文工具类
  */
 @Component
 public class SpringApplicationContextUtils implements ApplicationContextAware {
@@ -24,6 +24,11 @@ public class SpringApplicationContextUtils implements ApplicationContextAware {
     @SuppressWarnings("unchecked")
     public static <T> T getBean(String name) throws BeansException {
         return (T) applicationContext.getBean(name);
+    }
+
+
+    public static <T> T getBean(String name, Class<T> clazz) throws BeansException {
+        return (T) applicationContext.getBean(name, clazz);
     }
 
 

@@ -1,4 +1,4 @@
-package com.github.x4096.common.utils.base;
+package com.github.x4096.common.base;
 
 /**
  * @author 0x4096.peng@gmail.com
@@ -75,7 +75,7 @@ public class Pair<L, R> {
      * 根据等号左边的泛型，自动构造合适的Pair
      */
     public static <L, R> Pair<L, R> of(L left, R right) {
-        return new Pair<L, R>(left, right);
+        return new Pair<>(left, right);
     }
 
 }

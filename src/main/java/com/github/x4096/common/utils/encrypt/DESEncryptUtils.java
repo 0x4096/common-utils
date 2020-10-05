@@ -1,6 +1,5 @@
 package com.github.x4096.common.utils.encrypt;
 
-import com.github.x4096.common.utils.constant.CharsetConstants;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +9,7 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
 /**
@@ -37,7 +37,7 @@ public class DESEncryptUtils {
     /**
      * 默认编码集
      */
-    private static final String DEFAULT_ENCODING = CharsetConstants.UTF_8;
+    private static final String DEFAULT_ENCODING = StandardCharsets.UTF_8.name();
 
     /**
      * 加密 KEY

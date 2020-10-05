@@ -2,6 +2,12 @@ package com.github.x4096.common.utils.mapper;
 
 import com.github.x4096.common.utils.reflect.AnnotationUtils;
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.converters.Converter;
+import com.thoughtworks.xstream.converters.MarshallingContext;
+import com.thoughtworks.xstream.converters.UnmarshallingContext;
+import com.thoughtworks.xstream.io.HierarchicalStreamReader;
+import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.apache.commons.lang3.Validate;
 
 import javax.xml.bind.*;
@@ -12,6 +18,8 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -23,12 +31,16 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class XmlMapperUtils {
 
-    private XmlMapperUtils() {
-    }
-
     private static final ConcurrentMap<Class, JAXBContext> jaxbContexts = new ConcurrentHashMap<>();
 
     private static final XStream xStream = new XStream();
+
+    private static final XStream xml2MapXStream = new XStream(new DomDriver());
+
+    static {
+        xml2MapXStream.alias("xml", Map.class);
+        xml2MapXStream.registerConverter(new MapEntryConverter());
+    }
 
     /**
      * Java Object->Xml 默认 UTF-8 编码
@@ -227,6 +239,19 @@ public class XmlMapperUtils {
 
 
     /**
+     * xml 转 Map
+     *
+     * @param xml xml 根元素必须为 xml 且不支持嵌套标签 exp: <xml> <其他元素></其他元素> </xml>
+     * @return Map
+     * @apiNote maybe throw StreamException
+     */
+    @SuppressWarnings("all")
+    public static Map<String, Object> xml2Map(String xml) {
+        return (Map<String, Object>) xml2MapXStream.fromXML(xml);
+    }
+
+
+    /**
      * 开放当前方法, 若无法满足你的转换, 你可以自定义设置 Marshaller
      *
      * @param clazz class
@@ -286,6 +311,36 @@ public class XmlMapperUtils {
     private static class CollectionWrapper {
         @XmlAnyElement
         protected Collection<?> collection;
+    }
+
+
+    private static class MapEntryConverter implements Converter {
+        @Override
+        public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
+            @SuppressWarnings("all")
+            Map<String, Object> map = (Map<String, Object>) source;
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                writer.startNode(entry.getKey());
+                writer.setValue(entry.getValue().toString());
+                writer.endNode();
+            }
+        }
+
+        @Override
+        public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext context) {
+            Map<String, Object> map = new HashMap<>();
+            while (reader.hasMoreChildren()) {
+                reader.moveDown();
+                map.put(reader.getNodeName(), reader.getValue());
+                reader.moveUp();
+            }
+            return map;
+        }
+
+        @Override
+        public boolean canConvert(Class type) {
+            return Map.class.isAssignableFrom(type);
+        }
     }
 
 }

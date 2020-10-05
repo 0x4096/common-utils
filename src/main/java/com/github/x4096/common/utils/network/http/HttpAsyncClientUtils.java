@@ -1,7 +1,6 @@
 package com.github.x4096.common.utils.network.http;
 
 import com.github.x4096.common.utils.network.http.config.HttpAsyncConfig;
-import com.github.x4096.common.utils.constant.CharsetConstants;
 import com.github.x4096.common.utils.text.ValidateUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
@@ -49,6 +48,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.CodingErrorAction;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -67,7 +67,7 @@ public class HttpAsyncClientUtils {
     private static final Logger logger = LoggerFactory.getLogger(HttpAsyncClientUtils.class);
 
 
-    private static final String DEFAULT_CHARSET = CharsetConstants.UTF_8;
+    private static final String DEFAULT_CHARSET = StandardCharsets.UTF_8.name();
 
 
     private static PoolingNHttpClientConnectionManager poolingNHttpClientConnectionManager;

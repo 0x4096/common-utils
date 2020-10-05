@@ -1,12 +1,12 @@
 package com.github.x4096.common.utils.encrypt;
 
-import com.github.x4096.common.utils.constant.CharsetConstants;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.crypto.Cipher;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -32,7 +32,7 @@ public class RSAEncryptUtils {
     /**
      * 字符编码集
      */
-    private static final String CHAR_ENCODING = CharsetConstants.UTF_8;
+    private static final String CHAR_ENCODING = StandardCharsets.UTF_8.name();
 
     /**
      * RSA 算法填充方式

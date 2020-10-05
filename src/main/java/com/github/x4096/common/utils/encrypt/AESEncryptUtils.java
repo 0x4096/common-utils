@@ -1,7 +1,5 @@
 package com.github.x4096.common.utils.encrypt;
 
-
-import com.github.x4096.common.utils.constant.CharsetConstants;
 import com.github.x4096.common.utils.encrypt.enums.AESECBPaddingEnum;
 import com.github.x4096.common.utils.encrypt.enums.AESModeEnum;
 import com.github.x4096.common.utils.encrypt.enums.AESPaddingEnum;
@@ -19,6 +17,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -31,9 +30,6 @@ import java.security.Security;
  */
 public class AESEncryptUtils {
 
-    private AESEncryptUtils() {
-    }
-
     private static final Logger logger = LoggerFactory.getLogger(AESEncryptUtils.class);
 
     /**
@@ -44,7 +40,7 @@ public class AESEncryptUtils {
     /**
      * 默认字符集编码
      */
-    private static final String DEFAULT_ENCODING = CharsetConstants.UTF_8;
+    private static final String DEFAULT_ENCODING = StandardCharsets.UTF_8.name();
 
     /**
      * 加密算法

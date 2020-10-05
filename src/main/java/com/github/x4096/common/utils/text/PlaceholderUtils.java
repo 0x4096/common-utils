@@ -10,13 +10,12 @@ import java.util.Map;
  * @description Formatter
  * @readme 源码来源: org.slf4j.helpers.MessageFormatter
  */
-public class StringFormatterUtils {
+public class PlaceholderUtils {
 
-    private StringFormatterUtils() {
+    private PlaceholderUtils() {
     }
 
     static final char DELIM_START = '{';
-    static final char DELIM_STOP = '}';
     static final String DELIM_STR = "{}";
     private static final char ESCAPE_CHAR = '\\';
 
