@@ -1,9 +1,8 @@
 package com.github.x4096.common.utils.data.redis.interf.impl;
 
-import com.github.x4096.common.utils.data.redis.interf.JedisTemplate;
+import com.github.x4096.common.utils.data.redis.interf.RedisTemplate;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.Cursor;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.ZSetOperations;
 
@@ -17,11 +16,11 @@ import java.util.concurrent.TimeUnit;
  * @DateTime: 2019-10-09 00:44
  * @Description: String-Object 操作
  */
-public class ObjectJedisTemplate implements JedisTemplate<String, Object> {
+public class ObjectJedisTemplate implements RedisTemplate<String, Object> {
 
-    private RedisTemplate<String, Object> redisTemplate;
+    private org.springframework.data.redis.core.RedisTemplate redisTemplate;
 
-    public ObjectJedisTemplate(RedisTemplate<String, Object> redisTemplate) {
+    public ObjectJedisTemplate(org.springframework.data.redis.core.RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
@@ -88,7 +87,7 @@ public class ObjectJedisTemplate implements JedisTemplate<String, Object> {
 
     @Override
     public String randomKey() {
-        return redisTemplate.randomKey();
+        return (String) redisTemplate.randomKey();
     }
 
     @Override

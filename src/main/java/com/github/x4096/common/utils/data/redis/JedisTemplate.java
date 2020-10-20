@@ -68,7 +68,6 @@ public class JedisTemplate {
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(redisStandaloneConfiguration, jedisClientConfiguration);
 
 
-
         stringRedisTemplate.setConnectionFactory(jedisConnectionFactory);
         stringRedisTemplate.afterPropertiesSet();
 
@@ -96,7 +95,6 @@ public class JedisTemplate {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(jedisConnectionFactory);
         redisTemplate.afterPropertiesSet();
-
 
 
         // System.out.println(jedis.get("he"));
@@ -335,8 +333,8 @@ public class JedisTemplate {
      * 设置ASCII码, 字符串'a'的ASCII码是97, 转为二进制是'01100001', 此方法是将二进制第offset位值变为value
      *
      * @param key
-     * @param postion 位置
-     * @param value   值,true为1, false为0
+     * @param offset 位置
+     * @param value  值,true为1, false为0
      * @return
      */
     public Boolean setBit(String key, long offset, boolean value) {
@@ -366,8 +364,6 @@ public class JedisTemplate {
     public Boolean setIfAbsent(String key, String value) {
         return redisTemplate.opsForValue().setIfAbsent(key, value);
     }
-
-
 
 
     /**
@@ -1412,9 +1408,6 @@ public class JedisTemplate {
     public Cursor<ZSetOperations.TypedTuple<String>> zScan(String key, ScanOptions options) {
         return redisTemplate.opsForZSet().scan(key, options);
     }
-
-
-
 
 
 }

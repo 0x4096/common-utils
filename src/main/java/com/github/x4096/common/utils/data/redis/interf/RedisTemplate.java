@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit;
  * @DateTime: 2019-10-08 23:41
  * @Description:
  */
-public interface JedisTemplate<K, V> {
+public interface RedisTemplate<K, V> {
 
-    /**
+    /*
      * ----------------------- 基本操作 -----------------------
      */
 
@@ -61,7 +61,7 @@ public interface JedisTemplate<K, V> {
      *
      * @param key  key
      * @param date 指定过期的时间
-     * @return
+     * @return 是否成功
      */
     Boolean expireAt(String key, Date date);
 
@@ -69,7 +69,7 @@ public interface JedisTemplate<K, V> {
      * 查找匹配的key
      *
      * @param pattern 正则表达式
-     * @return
+     * @return 查找匹配的key
      */
     Set<String> keys(String pattern);
 
@@ -90,8 +90,8 @@ public interface JedisTemplate<K, V> {
     /**
      * 返回 key 的剩余的过期时间 默认毫秒
      *
-     * @param key
-     * @return
+     * @param key key
+     * @return 过期时间 单位毫秒
      */
     Long getExpire(String key);
 
@@ -100,7 +100,7 @@ public interface JedisTemplate<K, V> {
      *
      * @param key  key
      * @param unit 时间单位
-     * @return
+     * @return 过期时间
      */
     Long getExpire(String key, TimeUnit unit);
 
@@ -122,7 +122,7 @@ public interface JedisTemplate<K, V> {
      *
      * @param oldKey 旧key名
      * @param newKey 新key名
-     * @return
+     * @return 修改 key 的名称
      */
     Boolean renameIfAbsent(String oldKey, String newKey);
 
@@ -132,7 +132,7 @@ public interface JedisTemplate<K, V> {
     DataType type(String key);
 
 
-    /**
+    /*
      * ----------------------- string相关操作 -----------------------
      */
 
@@ -306,7 +306,7 @@ public interface JedisTemplate<K, V> {
     Integer append(String key, String value);
 
 
-    /**
+    /*
      * ----------------------- hash相关操作 -----------------------
      */
 
@@ -438,7 +438,7 @@ public interface JedisTemplate<K, V> {
     Cursor<Map.Entry<Object, Object>> hScan(String key, ScanOptions options);
 
 
-    /**
+    /*
      * ----------------------- list相关操作 -----------------------
      */
 
@@ -639,7 +639,7 @@ public interface JedisTemplate<K, V> {
     Long lLen(String key);
 
 
-    /**
+    /*
      * ----------------------- set相关操作 -----------------------
      */
 
@@ -858,7 +858,7 @@ public interface JedisTemplate<K, V> {
     Cursor<V> sScan(String key, ScanOptions options);
 
 
-    /**
+    /*
      * ----------------------- zSet相关操作 -----------------------
      */
 

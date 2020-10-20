@@ -1,6 +1,6 @@
 package com.github.x4096.common.utils.data.redis.interf.impl;
 
-import com.github.x4096.common.utils.data.redis.interf.JedisTemplate;
+import com.github.x4096.common.utils.data.redis.interf.RedisTemplate;
 import org.springframework.data.redis.connection.DataType;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.ScanOptions;
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * @DateTime: 2019-10-09 00:23
  * @Description: String-String 操作
  */
-public class StringJedisTemplate implements JedisTemplate<String, String> {
+public class StringJedisTemplate implements RedisTemplate<String, String> {
 
     private StringRedisTemplate stringRedisTemplate;
 

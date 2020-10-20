@@ -7,7 +7,7 @@ import java.util.Map;
  * @author 0x4096.peng@gmail.com
  * @project common-utils
  * @datetime 2020/2/7 15:58
- * @description Formatter
+ * @description 占位符工具类 Formatter
  * @readme 源码来源: org.slf4j.helpers.MessageFormatter
  */
 public class PlaceholderUtils {
@@ -46,7 +46,7 @@ public class PlaceholderUtils {
     }
 
 
-    public static String arrayFormat(String messagePattern, Object[] argArray) {
+    private static String arrayFormat(String messagePattern, Object[] argArray) {
         int i = 0;
         int j;
         // use string builder for better multicore performance
